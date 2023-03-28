@@ -1,0 +1,163 @@
+{% extends 'homepage/basic.html' %}
+
+
+
+{% block content %}
+          <!-- Navbar items -->
+          <div class="container padding text-center" style="margin-top: 60px;margin-bottom: 60px;" >
+  <div class="row welcome ">
+      <div class="col-12 sm-12 md-xl-12">
+        <h2 class="title">REGISTERED ADMINS </h2>
+      </div>
+    </div>
+</div>
+
+<table class="table" style="table-layout: auto;width:100%">
+  <thead class="thead-dark">
+    <tr>
+      <th style="font-size: 15px;color: white;" scope="col-2">EMP NO</th>
+      <th style="font-size: 15px;color: white;" scope="col-2">NAME</th>
+      <th style="font-size: 15px;color: white;" scope="col-2">BRANCH</th>
+      <th style="font-size: 15px;color: white;" scope="col-2">EMAIL</th>
+      <th style="font-size: 15px;color: white;" scope="col-2">DELETE</th>
+
+
+    </tr>
+  </thead>
+   {% for x in all_staffs %}
+  <tbody>
+
+    <tr>
+
+      <td>{{x.emp_no}}</td>
+      <td>{{x.name}}</td>
+      {% if x.branch == 1 %}<td>EASTERN</td>{% endif %}
+      {% if x.branch == 2 %}<td>NORTHEASTERN</td>{% endif %}
+      {% if x.branch == 3 %}<td>RIFTVALLEY</td>{% endif %}
+      {% if x.branch == 4 %}<td>CENTRAL</td>{% endif %}
+      {% if x.branch == 5 %}<td>COASTAL</td>{% endif %}
+      {% if x.branch == 6 %}<td>NAIROBI</td>{% endif %}
+      {% if x.branch == 7 %}<td>NYANZA</td>{% endif %}
+      {% if x.branch == 8 %}<td>WESTERN</td>{% endif %}
+
+
+      <td>{{x.email}}</td>
+      <td><a href="{% url 'admin_delete' x.id %}"><i class="fa fa-minus-circle" style="font-size:18px;color:red"></i></a></td>
+
+    </tr>
+  </tbody>
+      {% endfor %}
+
+</table>
+
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-6">
+              <h1 class="text-white">ADD ADMIN</h1>
+              <p class="text-lead text-light">Please Create an account for our ADMIN</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card bg-secondary shadow border-0">
+
+            <div class="card-body px-lg-5 py-lg-5">
+
+              <form role="form" action="{% url 'admin_register' %}" method="POST">
+                {% csrf_token %}
+                <div class ="form-group">
+              {% if messages %}
+              <ul class="messages">
+                {% for i in messages %}
+                <li style="list-style-type: none;" class="{{ i.tags }}">
+                  <div class="alert {{ i.tags }} alert-dismissible fade show" role="alert">
+                    {{i}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input class="form-control" type="number" name="emp_number" placeholder="EMP. No." min="111111" max="99999999" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" name="email" placeholder="Email" type="email" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input  type="text" class="form-control" name="fname" placeholder="Full name" required>
+                  </div>
+                </div>
+                <div class="form-group">
+
+
+                    <h4>Please select BRANCH:</h4>
+                      <input type="radio" name="branch" value="1"> EASTERN<br>
+                      <input type="radio" name="branch" value="2"> NORTHEASTERN<br>
+                      <input type="radio" name="branch" value="3"> RIFTVALLEY<br>
+                      <input type="radio" name="branch" value="4"> CENTRAL<br>
+                      <input type="radio" name="branch" value="4"> COASTAL<br>
+                      <input type="radio" name="branch" value="4"> NAIROBI<br>
+                      <input type="radio" name="branch" value="4"> NYANZA<br>
+                      <input type="radio" name="branch" value="4"> WESTERN<br>
+
+
+
+                </div>
+
+
+                <div class="row my-4">
+                  <div class="col-12">
+                    <div class="custom-control custom-control-alternative ">
+                      <label class="custom-control" >
+                        <span class="text-muted">A mail will be sent to the email of the admin.</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary mt-4">Create account</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+
+
+
+  {% endblock %}

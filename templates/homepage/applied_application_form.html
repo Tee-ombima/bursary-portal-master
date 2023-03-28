@@ -1,0 +1,378 @@
+{% extends 'homepage/basic.html' %}
+
+{% block includefiles %}
+<style>
+
+
+  .formitself{
+    background-color: white;
+    padding: 5%;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 5px 10px grey;
+  }
+
+  .submitbtn{
+    margin: 0 auto;
+    background-color: #0c85d0;
+    padding: 2%;
+    color: white;
+    border-radius: 10%;
+  }
+
+  .submitbtn:hover{
+    background-color: #00ccff;
+  }
+
+
+</style>
+
+{% endblock %}
+
+
+    {% block content %}
+
+
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+
+          <div class="col-lg-7 col-md-10" style=" justify-content: center; align-self: center;">
+
+            <img class="img-responsive img-rounded" src="{{ student.profile.image.url }}" alt="profile pic" style="height: 300px; width: 300px;">
+
+          </div>
+          <div class ="form-group">
+              {% if messages %}
+              <ul class="messages">
+                {% for i in messages %}
+                <li style="list-style-type: none;" class="{{ i.tags }}">
+                  <div class="alert {{ i.tags }} alert-dismissible fade show" role="alert">
+                    {{i}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-12 order-xl-2 mb-5 mb-xl-0">
+
+        </div>
+        <div class="col-xl-12 order-xl-12">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <h3 class="mb-0">{{ student.first_name }}</h3>
+                </div>
+                {% if authority  == 0  %}
+                <div class="col-6">
+                <div class="card bg-primary text-white">
+    <div class="card-body">             <bold>you have selected all the required students reject few  selected student if you want to select others</bold>
+</div>
+  </div>
+</div>
+{% endif %}
+
+              </div>
+            </div>
+            <div class="card-body">
+              <!--- udation form-->
+
+                             <hr class="my-4" />
+
+        <!--- udation form-->
+              <form>
+                <h6 class="heading mb-4"><mark>User information</mark></h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">REG NO.</label>
+                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="{{student.studentname}}" value="{{student.username}}"disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{student.email}}" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Name</label>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="{{student.first_name}}" value="{{student.profile.name}}" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Father's rank</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="{{student.last_name}}" value="{{student.profile.father_rank}}"disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Father's Name</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="" value="{{student.profile.father_name}}"disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Phone Number</label>
+                        <input type="text" id="mobile" class="form-control form-control-alternative" placeholder="" value="{{student.profile.mobile}}"disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <h6 class="heading mb-4"><mark>Academic information</mark></h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Last year marks(SGPA)</label>
+                        <input type="text" id="input-username" class="form-control form-control-alternative"  value="{{student.profile.marks}}" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Class</label>
+{% if student.profile.branch == 1 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="EASTERN"> {% endif %}
+      {% if student.profile.branch == 2 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="NORTHEASTERN"> {% endif %}
+      {% if student.profile.branch == 3 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="RIFTVALLEY"> {% endif %}
+      {% if student.profile.branch == 4 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="CENTRAL"> {% endif %}
+      {% if student.profile.branch == 5 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="COASTAL"> {% endif %}
+      {% if student.profile.branch == 6 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="NAIROBI"> {% endif %}
+      {% if student.profile.branch == 7 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="NYANZA"> {% endif %}
+      {% if student.profile.branch == 8 %}<input type="text" id="input-email" class="form-control form-control-alternative" placeholder="" value="WESTERN"> {% endif %}
+                       </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Roll No.</label>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative"  value="{{student.profile.roll_no}}" >
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Attendence</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative"  value="{{student.profile.attendence}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!---documents--->
+                                <hr class="my-4" />
+
+                <h6 class="heading  mb-4"><mark>Documents Uploaded</mark></h6>
+
+                <div class="pl-lg-12">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >Last year marksheet   </label>
+
+                        <div>
+                          {% if application.applied_document_last_sem %}
+                         <a href="{{application.applied_document_last_sem.url}}"> <img class="img-responsive img-rounded" src="{{application.applied_document_last_sem.url}}" alt="Last year marksheet " style="height: 200px; width: 200px;"></a>
+                          {% else %}
+                          <p class="text-danger">document not uploaded</p>
+                          {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                         <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >class 12 marksheet </label>
+                        <div>
+                       {% if application.applied_document12 %}
+                           <a href="{{application.applied_document12.url}}"><img class="img-responsive img-rounded" src="{{application.applied_document12.url}}" alt="class 12 marksheet" style="height: 200px; width: 200px;"></a>
+                        {% else %}
+                            <p class="text-danger">document not uploaded</p>
+                        {% endif %}
+                      </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >class 10 marksheet</label>
+                        <div>
+                       {% if application.applied_document10 %}
+                           <a href="{{application.applied_document10.url}}"><img class="img-responsive img-rounded" src="{{application.applied_document10.url}}" alt="class 10 marksheet" style="height: 200px; width: 200px;"></a>
+                        {% else %}
+                           <p class="text-danger">document not uploaded</p>
+                        {% endif %}
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >Father's Identity card</label>
+                        <div>
+                       {% if application.applied_father_id %}
+                           <a href="{{application.applied_father_id.url}}"><img class="img-responsive img-rounded" src="{{application.applied_father_id.url}}" alt="Father's Identity card" style="height: 200px; width: 200px;"></a>
+                        {% else %}
+                           <p class="text-danger">document not uploaded</p>
+                        {% endif %}
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >Student's Identity/Dependent card</label>
+                        <div>
+                       {% if application.applied_student_id %}
+                           <a href="{{application.applied_student_id.url}}"><img class="img-responsive img-rounded" src="{{application.applied_student_id.url}}" alt="Student's Identity/Dependent card" style="height: 200px; width: 200px;"></a>
+                        {% else %}
+                           <p class="text-danger">document not uploaded</p>
+                        {% endif %}
+                      </div>
+                      </div>
+                    </div>
+
+
+                     <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >Extra 1</label>
+                        <div>
+                       {% if application.applied_extra1 %}
+                          <a href="{{application.applied_extra1.url}}"></a> <img class="img-responsive img-rounded" src="{{application.applied_extra1.url}}" alt="extra 1" style="height: 200px; width: 200px;"></a>
+                        {% else %}
+                           <p class="text-danger">document not uploaded</p>
+                        {% endif %}
+                      </div>
+                      </div>
+                    </div>
+                     <div class="col-lg-12">
+                      <div class="form-group">
+
+                        <label class="form-control-label" >Extra 2</label>
+                        <div>
+                       {% if application.applied_extra2 %}
+                          <a href="{{application.applied_extra2.url}}"></a> <img class="img-responsive img-rounded" src="{{application.applied_extra2.url}}" alt="extra 2" style="height: 200px; width: 200px;"></a>
+                        {% else %}
+                           <p class="text-danger">document not uploaded</p>
+                        {% endif %}
+                      </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                      <div class="form-group">
+
+                        <label class="form-control-label" >Filled Application Form</label>
+
+                       {% if application.applied_scholarship_form %}
+                          <!-- <a href="{{application.applied_scholarship.url}}"></a> <img class="img-responsive img-rounded" src="{{application.applied_scholarship_form.url}}" alt="extra 2" style="height: 200px; width: 200px;"></a> -->
+
+                          <a href="{% url 'show-applied_scholarship-form' application.id %}">View </a>
+                        {% else %}
+                           <p class="text-danger">document not uploaded</p>
+                        {% endif %}
+                      </div>
+                      </div>
+
+
+              </div>
+                              <hr class="my-4" />
+
+                <!-- Address -->
+                <h6 class="heading mb-4"><mark>Contact information</mark></h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Permanent Address</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="{{student.profile.address}}" type="text">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <hr class="my-4" />
+                <!-- Description -->
+
+              </form>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                {% if authority == 1 and got_already == 0 %}
+                     <a href="{% url 'change_status' application.id 1 student.id %}"><button type="button" class="btn btn-success float-right">Select</button></a>
+                {% elif got_already == 1 %}
+                     <div class="card bg-primary text-white">
+                         <div class="card-body">
+                             <bold>This student have already got one scholarship for this session</bold>
+                        </div>
+                     </div>
+                {% elif authority == 0 %}
+                     <div class="card bg-primary text-white">
+                         <div class="card-body">
+                             <bold>you have selected all the required students <br>reject few  selected student if you want to select others</bold>
+                        </div>
+                     </div>
+                {% endif %}
+
+              </div>
+              <div class="col-6">
+               <a href="{% url 'change_status' application.id 0 student.id %}"> <button type="button" class="btn btn-danger">Reject</button></a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <!-- Footer -->
+
+    </div>
+
+
+  {% endblock %}
+
+  <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+          <div class="col-xl-6">
+            <div class="copyright text-center text-xl-left text-muted">
+              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Nikhil</a>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+              <li class="nav-item">
+                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Scholarship team AIT</a>
+              </li>
+              <li class="nav-item">
+                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>

@@ -649,6 +649,8 @@ def show_selected_applicants(request,x):
 
     #print("branch of this admin is",all_admins[0].branch)
     #print("current scholarship is",current_scholarship.title)
+
+    
     for apps in all_applications:
         Student = User.objects.get(id=apps.user_id)
         if Student.profile.branch == all_admins[0].branch and apps.status == 1 and apps.scholarship_id == int(x):
